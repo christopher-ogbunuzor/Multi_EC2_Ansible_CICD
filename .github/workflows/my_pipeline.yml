@@ -54,10 +54,12 @@ jobs:
       #     cat ~/inventory.hosts | cut -d' ' -f1-2 | tr ' ' '\n' >> ~/host/inventory.hosts
       #   continue-on-error: true
 
-      - name: Check how to clean up inventory file
+      - name: Confirm inventory.hosts file is clean
         id: write_output
         run: |
           terraform output | cut -d'"' -f 2 > ~/inventory.hosts
+          sed -n '4p' ~/inventory.hosts > ~/inventory.hosts
+          cat ~/inventory.hosts | cut -d' ' -f1-2 | tr ' ' '\n' > ~/inventory.hosts
           cat ~/inventory.hosts
           
         continue-on-error: true
