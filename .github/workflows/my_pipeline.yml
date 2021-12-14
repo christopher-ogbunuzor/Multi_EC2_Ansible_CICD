@@ -86,7 +86,7 @@ jobs:
       - name: Adding remote servers to the .ssh/known_host file 
         id: update_known_host_file
         run: |
-          cat ~/inventory2.hosts | cut -d' ' -f1,2 | tr ' ' '\n' >> ~/inventory3.hosts
+          cat ~/inventory2.hosts | cut -d' ' -f1-5 | tr ' ' '\n' >> ~/inventory3.hosts
           ssh-keyscan -t ecdsa,ed25519 -H $(cat ~/inventory3.hosts) >> ~/.ssh/known_hosts
             
         continue-on-error: true
