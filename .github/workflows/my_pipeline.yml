@@ -58,9 +58,9 @@ jobs:
         id: write_output
         run: |
           terraform output | cut -d'"' -f 2 > ~/inventory.hosts
-          sed -n '3p' ~/inventory.hosts > ~/inventory.hosts
-          cat ~/inventory.hosts | cut -d' ' -f1-2 | tr ' ' '\n' > ~/inventory.hosts
-          cat ~/inventory.hosts
+          sed -n '3p' ~/inventory.hosts > ~/inventory2.hosts
+          cat ~/inventory2.hosts | cut -d' ' -f1-2 | tr ' ' '\n' >> ~/host/inventory.hosts
+          cat ~/host/inventory.hosts
           
         continue-on-error: true
 
