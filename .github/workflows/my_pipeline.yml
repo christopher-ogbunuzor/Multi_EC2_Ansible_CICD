@@ -103,7 +103,9 @@ jobs:
           echo "This is printing inventory3.hosts"
           cat ~/inventory3.hosts
           echo "Below shld remove old host keys"
-          for line in `cat ~/inventory3.hosts`; do ssh-keygen -R "$line"; done
+          xargs -l ssh-keygen -R < ~/inventory3.hosts
+          
+          
         continue-on-error: true  
           
           
