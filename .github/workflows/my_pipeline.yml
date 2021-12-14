@@ -40,10 +40,10 @@ jobs:
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/ta-lab-key.pem
           chmod 600 ~/.ssh/ta-lab-key.pem
 
-      - name: Echo script.sh to a file
-        run: |
-          echo "${{secrets.SCRIPT}}" > ~/script.sh
-          chmod +x ~/script.sh
+      # - name: Echo script.sh to a file
+      #   run: |
+      #     echo "${{secrets.SCRIPT}}" > ~/script.sh
+      #     chmod +x ~/script.sh
 
       - name: Start creating the inventory.hosts file
         id: start_create
@@ -91,28 +91,30 @@ jobs:
 
     
 
-      # - name: Adding remote servers to the .ssh/known_host file 
-      #   id: update_known_host_file
-      #   run: |
-      #     cat ~/inventory2.hosts | cut -d' ' -f1 > ~/inventory3.hosts
-      #     cat ~/inventory2.hosts | cut -d' ' -f2 > ~/inventory4.hosts
-      #     ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
-      #     ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory4.hosts)" >> ~/.ssh/known_hosts  
-      #   continue-on-error: true
-      #   ssh-keygen -R "$(< ~/inventory3.hosts)"
-
-      - name: Prep remote servers host key 
-        id: Prep_known_host_file
-        run: |
-          cat ~/inventory2.hosts | cut -d' ' -f1,2 | tr ' ' '\n' >> ~/inventory3.hosts
-          echo "This is printing inventory3.hosts"
-          cat ~/inventory3.hosts
-        continue-on-error: true  
-
       - name: Adding remote servers to the .ssh/known_host file 
         id: update_known_host_file
-        run: ~/script.sh
+        run: |
+          cat ~/inventory2.hosts | cut -d' ' -f1 > ~/inventory3.hosts
+          cat ~/inventory2.hosts | cut -d' ' -f2 > ~/inventory4.hosts
+          ssh-keygen -R "$(< ~/inventory3.hosts)"
+          ssh-keygen -R "$(< ~/inventory4.hosts)"
+          ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
+          ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory4.hosts)" >> ~/.ssh/known_hosts  
         continue-on-error: true
+      
+
+      # - name: Prep remote servers host key 
+      #   id: Prep_known_host_file
+      #   run: |
+      #     cat ~/inventory2.hosts | cut -d' ' -f1,2 | tr ' ' '\n' >> ~/inventory3.hosts
+      #     echo "This is printing inventory3.hosts"
+      #     cat ~/inventory3.hosts
+      #   continue-on-error: true  
+
+      # - name: Adding remote servers to the .ssh/known_host file 
+      #   id: update_known_host_file
+      #   run: ~/script.sh
+      #   continue-on-error: true
           
           
           
