@@ -94,11 +94,14 @@ jobs:
       #     ssh-keygen -R $server2_IP
       #     ssh-keyscan -t ecdsa,ed25519 -H $server2_IP > ~/.ssh/known_hosts 
       #   continue-on-error: true
+
       - name: Adding remote servers to the .ssh/known_host file 
         id: update_known_host_file
         run: |
-          ssh-keyscan -t ecdsa,ed25519 -H 54.74.165.201 >> ~/.ssh/known_hosts
-          ssh-keyscan -t ecdsa,ed25519 -H 34.240.1.52 >> ~/.ssh/known_hosts
+          cat ~/inventory2.hosts | cut -d' ' -f1 > ~/inventory3.hosts
+          cat ~/inventory2.hosts | cut -d' ' -f2 > ~/inventory4.hosts
+          ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
+          ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory4.hosts)" >> ~/.ssh/known_hosts
           
           
            
