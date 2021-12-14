@@ -96,8 +96,6 @@ jobs:
         run: |
           cat ~/inventory2.hosts | cut -d' ' -f1 > ~/inventory3.hosts
           cat ~/inventory2.hosts | cut -d' ' -f2 > ~/inventory4.hosts
-          ssh-keygen -R "$(< ~/inventory3.hosts)"
-          ssh-keygen -R "$(< ~/inventory4.hosts)"
           ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
           ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory4.hosts)" >> ~/.ssh/known_hosts  
         continue-on-error: true
