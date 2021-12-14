@@ -103,11 +103,11 @@ jobs:
           echo "This is printing inventory3.hosts"
           cat ~/inventory3.hosts
           echo "Below shld remove old host keys"
-          while IFS= read -r LINE; do
-              ssh-keygen -R "$LINE"
-              done < ~/inventory3.hosts
-          
-          
+          while read rec
+              do
+              ssh-keygen -R "$rec"
+              done < ~/inventory3.hosts 
+                   
           
         continue-on-error: true  
           
