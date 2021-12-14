@@ -60,6 +60,7 @@ jobs:
           terraform output | cut -d'"' -f 2 > ~/inventory.hosts
           sed -n '4p' ~/inventory.hosts > ~/inventory2.hosts
           cat ~/inventory.hosts
+          echo "separator"
           cat ~/inventory2.hosts
           
         continue-on-error: true
