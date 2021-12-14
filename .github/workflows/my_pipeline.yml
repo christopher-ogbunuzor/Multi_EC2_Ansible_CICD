@@ -99,6 +99,9 @@ jobs:
         id: update_known_host_file
         run: |
           cat ~/inventory2.hosts | cut -d' ' -f1,2 | tr ' ' '\n' >> ~/inventory3.hosts
+          echo "This is printing inventory3.hosts"
+          cat ~/inventory3.hosts
+          echo "Below shld remove old host keys"
           ssh-keygen -R "$(< ~/inventory3.hosts)"
           ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
           
