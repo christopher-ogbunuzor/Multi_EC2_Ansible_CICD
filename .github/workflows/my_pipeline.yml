@@ -47,12 +47,7 @@ jobs:
           echo "[webserver]" > ~/host/inventory.hosts        
         continue-on-error: true
 
-      # - name: Write terraform output to inventory.hosts file
-      #   id: write_output
-      #   run: |
-      #     terraform output | cut -d'"' -f 2 > ~/inventory.hosts
-      #     cat ~/inventory.hosts | cut -d' ' -f1-2 | tr ' ' '\n' >> ~/host/inventory.hosts
-      #   continue-on-error: true
+ 
 
       - name: Confirm inventory.hosts file is clean
         id: write_output
@@ -69,30 +64,30 @@ jobs:
           
         continue-on-error: true
 
-      # - name: Build inventory.hosts file
-      #   id: build_inventory_file
-      #   run: echo "[webserver:vars]" >> ~/host/inventory.hosts 
-      #   continue-on-error: true
+      - name: Build inventory.hosts file
+        id: build_inventory_file
+        run: echo "[webserver:vars]" >> ~/host/inventory.hosts 
+        continue-on-error: true
 
-      # - name: Continue building inventory.hosts file 
-      #   id: continue_inventory_file
-      #   run: echo 'ansible_user = "ubuntu"' >> ~/host/inventory.hosts 
-      #   continue-on-error: true
+      - name: Continue building inventory.hosts file 
+        id: continue_inventory_file
+        run: echo 'ansible_user = "ubuntu"' >> ~/host/inventory.hosts 
+        continue-on-error: true
 
-      # - name: Continue2 building inventory.hosts file 
-      #   id: continue2_inventory_file
-      #   run: echo 'ansible_ssh_private_key_file = "~/.ssh/ta-lab-key.pem"' >> ~/host/inventory.hosts 
-      #   continue-on-error: true
+      - name: Continue2 building inventory.hosts file 
+        id: continue2_inventory_file
+        run: echo 'ansible_ssh_private_key_file = "~/.ssh/ta-lab-key.pem"' >> ~/host/inventory.hosts 
+        continue-on-error: true
 
-      # - name: Print out inventory.hosts file 
-      #   id: print
-      #   run: cat ~/host/inventory.hosts 
-      #   continue-on-error: true
+      - name: Print out inventory.hosts file 
+        id: print
+        run: cat ~/host/inventory.hosts 
+        continue-on-error: true
 
-      # - name: Run playbook to configure nginx 
-      #   id: run_playbook
-      #   run: ansible-playbook playbook.yml 
-      #   continue-on-error: true
+      - name: Run playbook to configure nginx 
+        id: run_playbook
+        run: ansible-playbook playbook.yml 
+        continue-on-error: true
 
       # - name: Destroy
       #   id: destroy
