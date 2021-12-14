@@ -56,7 +56,7 @@ jobs:
           echo "separator"
           cat ~/inventory2.hosts
           echo "separator2"
-          cat ~/inventory2.hosts | cut -d' ' -f1,2 | tr ' ' '\n' >> ~/host/inventory.hosts
+          cat ~/inventory2.hosts | cut -d' ' -f1-5 | tr ' ' '\n' >> ~/host/inventory.hosts
           echo "This shld be final inventory file"
           cat ~/host/inventory.hosts
           
