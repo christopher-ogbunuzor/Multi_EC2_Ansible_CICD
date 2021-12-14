@@ -60,7 +60,7 @@ data "aws_ami" "my_aws_ami" {
 
 # EC2 - PUBLIC
 resource "aws_instance" "my_public_server" {
-    count = 2
+    count = 5
     ami = data.aws_ami.my_aws_ami.id
     instance_type = var.instance_type
     key_name = var.keypair_name
