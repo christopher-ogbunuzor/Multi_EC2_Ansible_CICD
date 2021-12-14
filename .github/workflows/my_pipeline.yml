@@ -94,6 +94,7 @@ jobs:
       #     ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
       #     ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory4.hosts)" >> ~/.ssh/known_hosts  
       #   continue-on-error: true
+      #   ssh-keygen -R "$(< ~/inventory3.hosts)"
 
       - name: Adding remote servers to the .ssh/known_host file 
         id: update_known_host_file
@@ -102,8 +103,9 @@ jobs:
           echo "This is printing inventory3.hosts"
           cat ~/inventory3.hosts
           echo "Below shld remove old host keys"
-          ssh-keygen -R "$(< ~/inventory3.hosts)"
-          ssh-keyscan -t ecdsa,ed25519 -H "$(< ~/inventory3.hosts)" >> ~/.ssh/known_hosts
+          for line in `cat ~/inventory3.hosts`; do ssh-keygen -R "$line"; done
+        continue-on-error: true  
+          
           
           
 
