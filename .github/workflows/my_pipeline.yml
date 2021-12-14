@@ -97,8 +97,8 @@ jobs:
       - name: Adding remote servers to the .ssh/known_host file 
         id: update_known_host_file
         run: |
-          me = christopher
-          echo $me
+          cat ~/inventory2.hosts | cut -d' ' -f1 | ssh-keygen -R 
+          
           
            
         continue-on-error: true
