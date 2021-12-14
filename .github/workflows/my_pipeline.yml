@@ -51,7 +51,8 @@ jobs:
         id: write_output
         run: |
           terraform output | cut -d'"' -f 2 > ~/inventory.hosts
-          sed -n '4p' ~/inventory.hosts >> ~/host/inventory.hosts
+          cat ~/inventory.hosts | cut -d' ' -f1-2 | tr ' ' '\n' >> ~/host/inventory.hosts
+          
         continue-on-error: true
 
       
@@ -81,7 +82,7 @@ jobs:
         run: ansible-playbook playbook.yml 
         continue-on-error: true
 
-      - name: Destroy
-        id: destroy
-        run: terraform destroy --auto-approve
-        continue-on-error: true
+      # - name: Destroy
+      #   id: destroy
+      #   run: terraform destroy --auto-approve
+      #   continue-on-error: true
